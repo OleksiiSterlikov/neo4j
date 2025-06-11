@@ -14,9 +14,9 @@ WORKDIR /app
 # Add all files project directory to the working directory
 ADD . /app
 
-# Run command to install all dependencys and upgrade packages
-RUN pip install --upgrade pip # && pip install -r requirements.txt
+# # Run command to install all dependencys and upgrade packages
+# RUN pip install --upgrade pip # && pip install -r requirements.txt
 
 RUN neo4j
 # Copy Project to the container
-COPY . /app
+COPY ./import/* /import

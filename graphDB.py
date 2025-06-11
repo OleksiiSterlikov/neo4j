@@ -34,8 +34,8 @@ class Neo4jConnection:
 
 
 # Connection and create Database
-connection = Neo4jConnection(uri='bolt://localhost:7687', user='a2k', password='31-MaY-1978')
-connection.query("CREATE DATABASE graphdb IF NOT EXISTS")
+connection = Neo4jConnection(uri='neo4j://localhost:7687', user='neo4j', password='Your-Password')
+# connection.query("CREATE DATABASE graphdb IF NOT EXISTS")
 
 # Import .csv tables to the database
 QUERY_STRING = '''
@@ -43,28 +43,28 @@ LOAD CSV WITH HEADERS FROM 'file:///Teachers.csv' AS line FIELDTERMINATOR ','
 MERGE (Teachers:Teachers {TeacherID: line.TeacherID})
  ON CREATE SET Teachers.LastName = line.LastName, Teachers.FirstName = line.FirstName, Teachers.SubjectID = line.SubjectID;
 '''
-connection.query(QUERY_STRING, db='graphdb')
+connection.query(QUERY_STRING, db='neo4j')
 
 QUERY_STRING = '''
 LOAD CSV WITH HEADERS FROM 'file:///Students.csv' AS line FIELDTERMINATOR ','
 MERGE (Students:Students {StudentID: line.StudentID})
  ON CREATE SET Students.LastName = line.LastName, Students.FirstName = line.FirstName;
 '''
-connection.query(QUERY_STRING, db='graphdb')
+connection.query(QUERY_STRING, db='neo4j')
 
 QUERY_STRING = '''
 LOAD CSV WITH HEADERS FROM 'file:///Grades.csv' AS line FIELDTERMINATOR ','
 MERGE (Grades:Grades {GradeID: line.GradeID})
  ON CREATE SET Grades.StudentID = line.StudentID, Grades.TeacherID = line.TeacherID, Grades.Grade = line.Grade;
 '''
-connection.query(QUERY_STRING, db='graphdb')
+connection.query(QUERY_STRING, db='neo4j')
 
 QUERY_STRING = '''
 LOAD CSV WITH HEADERS FROM 'file:///Subjects.csv' AS line FIELDTERMINATOR ','
 MERGE (Subjects:Subjects {SubjectID: line.SubjectID})
  ON CREATE SET Subjects.Name = line.Name;
 '''
-connection.query(QUERY_STRING, db='graphdb')
+connection.query(QUERY_STRING, db='neo4j')
 
 # Creating relationships between tables
 
@@ -74,7 +74,7 @@ MATCH (Grades:Grades {GradeID: line.GradeID})
 MATCH (Students:Students {StudentID: line.StudentID})
 CREATE (Students)-[:SOLD]->(Grades);
 '''
-connection.query(QUERY_STRING, db='graphdb')
+connection.query(QUERY_STRING, db='neo4j')
 
 QUERY_STRING = '''
 LOAD CSV WITH HEADERS FROM 'file:///Grades.csv' AS line
@@ -82,7 +82,7 @@ MATCH (Grades:Grades {GradeID: line.GradeID})
 MATCH (Teachers:Teachers {TeacherID: line.TeacherID})
 CREATE (Teachers)-[:SOLD]->(Grades);
 '''
-connection.query(QUERY_STRING, db='graphdb')
+connection.query(QUERY_STRING, db='neo4j')
 
 QUERY_STRING = '''
 LOAD CSV WITH HEADERS FROM 'file:///Teachers.csv' AS line
@@ -90,4 +90,4 @@ MATCH (Teachers:Teachers {TeacherID: line.TeacherID})
 MATCH (Subjects:Subjects {SubjectID: line.SubjectID})
 CREATE (Subjects)-[:SOLD]->(Teachers);
 '''
-connection.query(QUERY_STRING, db='graphdb')
+connection.query(QUERY_STRING, db='neo4j')
