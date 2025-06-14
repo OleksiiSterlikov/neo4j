@@ -19,8 +19,9 @@ services:
       # - DB_PORT=7474
 
       # Make sure this matches the NEO4J_AUTH environment variable declared in ./neo4j/v4.x.x/Dockerfile
-      - NEO4J_AUTH=neo4j/Your-Password
-
+      - NEO4J_AUTH=neo4j/NEO4J_PASSWORD
+    env_file:
+      - ./.env 
     restart: always
 
 

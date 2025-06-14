@@ -1,4 +1,5 @@
 from neo4j import GraphDatabase
+import os
 
 
 class Neo4jConnection:
@@ -34,7 +35,7 @@ class Neo4jConnection:
 
 
 # Connection and create Database
-connection = Neo4jConnection(uri='neo4j://localhost:7687', user='neo4j', password='Your-Password')
+connection = Neo4jConnection(uri='neo4j://localhost:7687', user='neo4j', password=os.getenv('NEO4J_PASSWORD'))
 # connection.query("CREATE DATABASE graphdb IF NOT EXISTS")
 
 # Import .csv tables to the database
