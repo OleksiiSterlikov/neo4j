@@ -78,3 +78,9 @@ node
 package-lock.json
 .mvn/.develocity
 .tmp
+neo4j_auth.txt
+neo4j_data/config
+neo4j_data/data 
+neo4j_data/logs 
+neo4j_data/plugins
+#neo4j_data/import

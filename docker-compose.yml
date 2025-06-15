@@ -6,23 +6,27 @@ services:
       - 7474:7474
       - 7687:7687
     volumes:
-      - /$HOME/neo4j/logs:/logs
-      - /$HOME/neo4j/config:/config
-      - /$HOME/neo4j/data:/data
-      - /$HOME/neo4j/plugins:/plugins
-      - ./import/:/import/
+      - ./neo4j_data/logs:/logs
+      - ./neo4j_data/config:/config
+      - ./neo4j_data/data:/data
+      - ./neo4j_data/plugins:/plugins
+      - ./neo4j_data/import:/import
+    # env_file:
+    #   - .env
     environment:
-    
-      # DB_HOST and DB_PORT values would appear in command-line output as:
-      # Remote interface available at http://localhost:7474/
-      # - DB_HOST=localhost
-      # - DB_PORT=7474
-
       # Make sure this matches the NEO4J_AUTH environment variable declared in ./neo4j/v4.x.x/Dockerfile
+<<<<<<< HEAD
       - NEO4J_AUTH=neo4j/NEO4J_PASSWORD
     env_file:
       - ./.env 
+=======
+      - NEO4J_AUTH_FILE=/run/secrets/neo4j_auth_file
+>>>>>>> 94f7373 (Fixing uses environments variable)
     restart: always
 
+    secrets:
+      - neo4j_auth_file
 
-
+secrets:
+  neo4j_auth_file:
+    file: ./neo4j_auth.txt
