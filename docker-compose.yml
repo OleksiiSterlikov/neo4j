@@ -16,9 +16,13 @@ services:
     environment:
       # Make sure this matches the NEO4J_AUTH environment variable declared in ./neo4j/v4.x.x/Dockerfile
 <<<<<<< HEAD
+<<<<<<< HEAD
       - NEO4J_AUTH=neo4j/NEO4J_PASSWORD
     env_file:
       - ./.env 
+=======
+      - NEO4J_AUTH_FILE=/run/secrets/neo4j_auth_file
+>>>>>>> 94f7373 (Fixing uses environments variable)
 =======
       - NEO4J_AUTH_FILE=/run/secrets/neo4j_auth_file
 >>>>>>> 94f7373 (Fixing uses environments variable)
