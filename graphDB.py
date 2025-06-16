@@ -1,6 +1,9 @@
 from neo4j import GraphDatabase
+from dotenv import load_dotenv
 import os
 
+
+load_dotenv()
 
 class Neo4jConnection:
     '''
@@ -35,7 +38,8 @@ class Neo4jConnection:
 
 
 # Connection and create Database
-connection = Neo4jConnection(uri='neo4j://localhost:7687', user='neo4j', password=os.getenv('NEO4J_PASSWORD'))
+connection = Neo4jConnection(uri=os.getenv('NEO4j_URI'), user=os.getenv('NEO4J_USER'), password=os.getenv('NEO4J_PASSWORD')
+                            )
 # connection.query("CREATE DATABASE graphdb IF NOT EXISTS")
 
 # Import .csv tables to the database
